@@ -14,7 +14,9 @@ jobs:
         python-version: 3.7
 
     - name: Install dependencies
-      run: | 
+      run: |
+        # переходим в директорию с requirements.txt
+        cd /d/Dev/yamdb_final/api_yamdb
         # обновление pip
         python -m pip install --upgrade pip 
         # установка flake8 и его плагинов
@@ -29,5 +31,7 @@ jobs:
 
     - name: Test pytest
       run: |
+        # переходим в директорию с pytest
+        cd /d/Dev/yamdb_final
         # запуск проверки проекта pytest
         pytest
