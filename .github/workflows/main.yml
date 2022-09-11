@@ -1,4 +1,4 @@
-name: Django-app workflow
+name: yamdb_workflow
 
 on: [push]
 
@@ -15,23 +15,11 @@ jobs:
 
     - name: Install dependencies
       run: |
-        # переходим в директорию с requirements.txt
-        cd /d/Dev/yamdb_final/api_yamdb
-        # обновление pip
         python -m pip install --upgrade pip 
-        # установка flake8 и его плагинов
         pip install flake8 pep8-naming flake8-broken-line flake8-return flake8-isort
-        # установка зависимостей
         pip install -r requirements.txt 
 
-    - name: Test with flake8 and django tests
+    - name: Test with flake8 and pytest
       run: |
-        # запуск проверки проекта по flake8
         python -m flake8
-
-    - name: Test pytest
-      run: |
-        # переходим в директорию с pytest
-        cd /d/Dev/yamdb_final
-        # запуск проверки проекта pytest
         pytest
