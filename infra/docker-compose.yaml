@@ -9,6 +9,7 @@ services:
       - ./.env
   web:
     build:
+      image: peshkmatvei/yamdb_final:latest
       context: ../
       dockerfile: api_yamdb/Dockerfile
     restart: always
