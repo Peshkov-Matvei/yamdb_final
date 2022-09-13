@@ -9,6 +9,7 @@ from rest_framework_simplejwt.tokens import AccessToken
 from django.db.models import Avg
 
 from reviews.models import User, Title, Genre, Category, Review
+
 from .filters import TitleFilter
 from .serializers import (
     UserSerializer,
