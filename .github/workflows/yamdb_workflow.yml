@@ -44,8 +44,6 @@ jobs:
             push: true
             tags: peshkmatvei/yamdb_final:latest
 
-
-
   send_message:
     runs-on: ubuntu-latest
     needs: deploy
