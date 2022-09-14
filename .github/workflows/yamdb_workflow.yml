@@ -21,7 +21,7 @@ jobs:
 
     - name: Test with flake8 and pytest
       run: |
-        python flake8 . --config=.flake8
+        python -m flake8 --ignore=I001,I005,W503 --per-file-ignores=settings.py:E501
         pytest
 
   build_and_push_to_docker_hub:
