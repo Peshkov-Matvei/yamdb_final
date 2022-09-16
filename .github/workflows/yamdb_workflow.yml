@@ -1,37 +1,78 @@
-version: '3.8'
+name: yamdb_workflow.yml
 
-volumes:
-  static_value:
-  media_value:
-  database:
+on: [push]
 
-services:
+jobs:
+  tests: 
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.7
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip 
+        pip install flake8 pep8-naming flake8-broken-line flake8-return flake8-isort
+        cd api_yamdb
+        pip install -r requirements.txt 
 
-  db:
-    image: postgres:13.0-alpine
-    volumes:
-      - database:/var/lib/postgresql/data/
-    env_file:
-      - ./.env
-  web:
-    image: peshkmatvei/yamdb_final:latest
-    restart: always
-    volumes:
-      - static_value:/app/static/
-      - media_value:/app/media/
-    depends_on:
-      - db
-    env_file:
-      - ./.env
+    - name: Test with flake8 and pytest
+      run: |
+        python -m flake8
+        pytest
 
-  nginx:
-    image: nginx:1.21.3-alpine
-    ports:
-      - "80:80"
-    volumes:
-      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
-      - static_value:/var/html/static/
-      - media_value:/var/html/media/
+  build_and_push_to_docker_hub:
+      name: Push Docker image to Docker Hub
+      runs-on: ubuntu-latest
+      needs: tests
+      steps:
+        - name: Check out the repo
+          uses: actions/checkout@v2 
+        - name: Set up Docker Buildx
+          uses: docker/setup-buildx-action@v1 
+        - name: Login to Docker 
+          uses: docker/login-action@v1 
+          with:
+            username: ${{ secrets.DOCKER_USERNAME }} 
+            password: ${{ secrets.DOCKER_PASSWORD }}
+        - name: Push to Docker Hub
+          uses: docker/build-push-action@v2 
+          with:
+            context: ./api_yamdb
+            push: true
+            tags: peshkmatvei/yamdb_final:latest
 
-    depends_on:
-      - web
+  deploy:
+      runs-on: ubuntu-latest
+      needs: build_and_push_to_docker_hub
+      steps:
+        - name: executing remote ssh commands to deploy
+          uses: appleboy/ssh-action@master
+          with:
+            host: ${{ secrets.HOST }}
+            username: ${{ secrets.USER }}
+            key: ${{ secrets.SSH_KEY }}
+            script: |
+              sudo docker-compose stop
+              sudo docker-compose rm web
+              touch .env
+              echo DB_ENGINE=${{ secrets.DB_ENGINE }} >> .env
+              echo DB_NAME=${{ secrets.DB_NAME }} >> .env
+              echo POSTGRES_USER=${{ secrets.POSTGRES_USER }} >> .env
+              echo POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }} >> .env
+              echo DB_HOST=${{ secrets.DB_HOST }} >> .env
+              echo DB_PORT=${{ secrets.DB_PORT }} >> .env
+              sudo docker-compose up -d
+
+  send_message:
+    runs-on: ubuntu-latest
+    needs: deploy
+    steps:
+    - name: send message
+      uses: appleboy/telegram-action@master
+      with:
+        to: ${{ secrets.TELEGRAM_TO }}
+        token: ${{ secrets.TELEGRAM_TOKEN }}
+        message: ${{ github.workflow }}  успешно выполнен!
