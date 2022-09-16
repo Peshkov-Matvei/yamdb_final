@@ -8,7 +8,7 @@ services:
       - ./.env
 
   web:
-    image: peshkmatvei/yamdb_final:latest
+    image: peshkmatvei/yamdb_final
     restart: always
     volumes:
       - static_value:/app/static/ 
