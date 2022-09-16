@@ -1,6 +1,7 @@
-version: '2.6.1'
+version: '3.8'
 
 services:
+
   db:
     image: postgres:13.0-alpine
     volumes:
@@ -17,6 +18,7 @@ services:
       - db
     env_file:
       - ./.env
+
   nginx:
     image: nginx:1.21.3-alpine
     ports:
