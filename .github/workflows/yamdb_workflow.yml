@@ -1,31 +1,3 @@
-Skip to content
-Search or jump to…
-Pull requests
-Issues
-Marketplace
-Explore
- 
-@Peshkov-Matvei 
-Andrei191
-/
-yamdb_final
-Public
-generated from yandex-praktikum/yamdb_final
-Code
-Issues
-Pull requests
-Actions
-Projects
-Security
-Insights
-yamdb_final/.github/workflows/yamdb_workflow.yml
-@Andrei191
-Andrei191 Add readme and 'if github.ref == master'
-Latest commit 64da72c on 29 Jun
- History
- 1 contributor
-87 lines (82 sloc)  3.04 KB
-
 name: Django-app workflow
 
 on: [push]
