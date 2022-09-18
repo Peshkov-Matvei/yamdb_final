@@ -9,7 +9,7 @@ services:
     restart:
       always
   web:
-    image: dvoryanoff/yamdb_final:latest
+    image: peshkmatvei/yamdb_final:latest
     restart: always
     volumes:
       - static_value:/code/static/
