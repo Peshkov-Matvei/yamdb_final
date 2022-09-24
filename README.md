@@ -1,4 +1,4 @@
-![example workflow](https://github.com/github/yamdb_final/actions/workflows/yamdb_workflow/badge.svg)
+[![yamdb_workflow.yml](https://github.com/Peshkov-Matvei/yamdb_final/actions/workflows/yamdb_workflow.yml/badge.svg)](https://github.com/Peshkov-Matvei/yamdb_final/actions/workflows/yamdb_workflow.yml)
 # Проект yamdb_final
 ### Описание
 API проект для получения информации, выполненное в ходе подготовки к командной работе.
