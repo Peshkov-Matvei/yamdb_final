@@ -45,4 +45,4 @@ docker-compose exec web python manage.py loaddata fixtures.json
 ### Автор проекта
 Пешков Матвей студент ЯндексПрактикума
 ### Развернутый проект можно посмотреть по ссылке:
-http://51.250.15.12/api/v1/
+http://51.250.69.181/api/v1/
