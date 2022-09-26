@@ -1,4 +1,4 @@
-![example workflow](https://github.com/github/yamdb_final/actions/workflows/yamdb_workflow/badge.svg)
+[![yamdb_workflow.yml](https://github.com/Peshkov-Matvei/yamdb_final/actions/workflows/yamdb_workflow.yml/badge.svg)](https://github.com/Peshkov-Matvei/yamdb_final/actions/workflows/yamdb_workflow.yml)
 # Проект yamdb_final
 ### Описание
 API проект для получения информации, выполненное в ходе подготовки к командной работе.
@@ -45,4 +45,4 @@ docker-compose exec web python manage.py loaddata fixtures.json
 ### Автор проекта
 Пешков Матвей студент ЯндексПрактикума
 ### Развернутый проект можно посмотреть по ссылке:
-http://51.250.15.12
+http://51.250.69.181/api/v1/
