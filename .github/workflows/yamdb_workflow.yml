@@ -41,8 +41,7 @@ jobs:
           with:
             push: true
             tags: peshkmatvei/yamdb_final:latest
-            context: ./api_yamdb
-            filse: ./api_yamdb/Dockerfile
+
 
   deploy:
       runs-on: ubuntu-latest
