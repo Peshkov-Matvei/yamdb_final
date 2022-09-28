@@ -32,6 +32,7 @@ services:
     depends_on:
       - web
 volumes:
+  db_value:
   postgres_data:
   static_value:
   media_value:
